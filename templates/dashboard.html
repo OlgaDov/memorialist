@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h2>Your Flashcards</h2>
+
+<!-- Add new card form -->
+<form method="post" class="mb-4">
+    <div class="mb-3">
+        <label>Front (question)</label>
+        <input type="text" name="front" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label>Back (answer)</label>
+        <input type="text" name="back" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Card</button>
+</form>
+
+<!-- List of cards -->
+<div class="row">
+    {% for card in cards %}
+    <div class="col-md-4 mb-3">
+        <div class="card card-preview">
+            <div class="card-body">
+                <h5 class="card-title">{{ card["front"] }}</h5>
+                <p class="card-text text-muted">{{ card["back"] }}</p>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <p>No cards yet. Add your first one above!</p>
+    {% endfor %}
+</div>
+
+{% endblock %}

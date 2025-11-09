@@ -1,0 +1,25 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+
+# Virtual environment
+venv/
+__pycache__/
+
+# SQLite database
+*.db
+
+# Python bytecode
+*.pyc
+*.pyo
+*.pyd
+
+# IDE/project files
+.idea/
+*.iml
+
+# macOS system files
+.DS_Store
+
+# Environment/config files
+.env

@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<!-- List of cards -->
+<div class="row">
+    {% for card in cards %}
+    <div class="col-md-4 mb-3">
+        <div class="card card-preview">
+            <div class="card-body">
+                <h5 class="card-title">{{ card["front"] }}</h5>
+                <p class="card-text text-muted">{{ card["back"] }}</p>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <p>Add your first cards in Dashboard!</p>
+    {% endfor %}
+</div>
+
+
+<div class="bottom-text">
+    <p>Want to study smarter and build a stronger vocabulary?</p>
+    <p>Expand your vocabulary, improve your confidence, and boost your grades with our easy-to-use study tool.</p>
+</div>
+
+{% endblock %}

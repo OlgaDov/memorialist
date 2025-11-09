@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h2>Study Mode</h2>
+
+{% if not card %}
+<p>You don’t have any flashcards yet. <a href="{{ url_for('dashboard') }}">Add some first!</a></p>
+{% else %}
+<div class="card text-center p-4 mx-auto custom-card" style="max-width: 400px;">
+    <div class="card-content">
+        <h4 id="card-front">{{ card["front"] }}</h4>
+        <p id="card-back" style="display: none;">{{ card["back"] }}</p>
+    </div>
+
+    <form method="post" class="next-card-form">
+        <button type="submit" class="next-arrow-btn">
+            »
+        </button>
+    </form>
+
+    <div class="card-actions">
+        <form method="post" action="{{ url_for('mark_learned', card_id=card['id']) }}" class="mark-learned-form mt-3">
+            <label class="learned-label">
+                <input type="checkbox" name="learned" onchange="this.form.submit()" class="learned-checkbox">
+                <span>Learned</span>
+            </label>
+        </form>
+    </div>
+</div>
+
+<p class="text-center mt-4">
+    Remaining cards: {{ remaining }}
+</p>
+{% endif %}
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const front = document.getElementById("card-front");
+      const back = document.getElementById("card-back");
+      const flipBtn = document.getElementById("flip-btn");
+      const card = document.querySelector(".custom-card");
+
+      function flipCard() {
+        const visible = front.style.display !== "none" ? front : back;
+        const hidden = front.style.display !== "none" ? back : front;
+
+        visible.classList.add("fade-out");
+
+        setTimeout(() => {
+          visible.style.display = "none";
+          hidden.style.display = "block";
+          visible.classList.remove("fade-out");
+          hidden.classList.add("fade-in");
+
+          setTimeout(() => hidden.classList.remove("fade-in"), 300);
+        }, 200);
+      }
+
+      // Flip when clicking anywhere on the card (except buttons/inputs)
+      if (card) {
+        card.addEventListener("click", function(e) {
+          if (e.target.tagName === "BUTTON" || e.target.tagName === "INPUT" || e.target.closest("form")) {
+            return; // ignore clicks on buttons or forms
+          }
+          flipCard();
+        });
+      }
+    });
+</script>
+
+{% endblock %}
